@@ -1,2 +1,4 @@
 .venv
 producer.log
+measurements.parquet
+__pycache__
