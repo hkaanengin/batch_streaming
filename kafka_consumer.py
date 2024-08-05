@@ -1,5 +1,6 @@
 from kafka import KafkaConsumer
 import json, duckdb, os
+from datetime import datetime
 
 def create_table(conn):
     conn.execute("""
@@ -7,7 +8,9 @@ def create_table(conn):
             id INTEGER PRIMARY KEY,
             temperature FLOAT,
             humidity FLOAT,
-            date_time TIMESTAMP
+            date_time TIMESTAMP,
+            p_date STRING,
+            p_hour STRING
         )
     """)
 
@@ -46,9 +49,15 @@ if __name__ == '__main__':
             
             # Insert data into DuckDB
             conn.execute("""
-                INSERT INTO weather_measurements (id, temperature, humidity, date_time)
-                VALUES (?, ?, ?, ?)
-            """, (data['id'], data['temp'], data['humidity'], convert_to_timestamp(conn, data['date_time']))
+                INSERT INTO weather_measurements (id, temperature, humidity, date_time, p_date, p_hour)
+                VALUES (?, ?, ?, ?, ?, ?)
+            """, (data['id'], 
+                  data['temp'], 
+                  data['humidity'], 
+                  convert_to_timestamp(conn, data['date_time']),
+                  datetime.now().strftime('%Y-%m-%d'),
+                  datetime.now().strftime('%H')
+                  )
             )
             
             print(f"Inserted data: {data}")
