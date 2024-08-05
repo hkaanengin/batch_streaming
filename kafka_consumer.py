@@ -1,6 +1,5 @@
 from kafka import KafkaConsumer
 import json, duckdb, os
-from datetime import datetime
 
 def create_table(conn):
     conn.execute("""
