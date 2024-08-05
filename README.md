@@ -4,7 +4,7 @@
 - [Introduction](#introduction)
 - [Project Architecture](#project-architecture)
 - [Container Creation](#container-creation)
-- [Web Services](#web-services)xw
+- [Web Services](#web-services)
 
 ## Introduction
 
@@ -15,8 +15,8 @@ This project serves as an illustration to how to build an end-to-end batch and r
 ![Project Architecture]()
 
 Essential components for this project are:
-- **Data Source**: [measurements.parquet](https://randomuser.me/) as the starting point of the project to generate random user data.
-- **Apache Kafka and Zookeeper**: Used for streaming data from PostgreSQL to the processing engine.
+- **Data Source**: `measurements.parquet` as the starting point of the project to generate random user data.
+- **Apache Kafka and Zookeeper**: Used for streaming data from `measurements.parquet` to the processing engine.
     - **Kafka UI**: Review and controll the Kafka clusters&Schema registries.
 - **DuckDB**: Source database and data processor unit of the system. 
 - **Postgres**: Where the data will be stored(Semantic).
@@ -26,7 +26,7 @@ Essential components for this project are:
 We can get the container up and running with the necessary services by issuing the command below, in your terminal :
 
 ```bash
-docker compose -f up
+docker compose up
 ```
 
 If you encounter a docker network error or want to create a separate network for docker services, create one via command:
