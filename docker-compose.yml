@@ -62,5 +62,21 @@ services:
     stdin_open: true
     tty: true
 
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: weather_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - confluent
+
 networks:
   confluent:
+
+volumes:
+  postgres_data:
