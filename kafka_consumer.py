@@ -1,6 +1,5 @@
 from kafka import KafkaConsumer
 import json, duckdb, os, logging
-from datetime import datetime
 import signal
 
 logging.basicConfig(level=logging.INFO)
@@ -27,8 +26,8 @@ def validate_data(data):
 
 def insert_batch(conn, batch):
     conn.executemany("""
-        INSERT INTO weather_measurements (id, temperature, humidity, date_time, p_date, p_hour)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO weather_measurements (id, temperature, humidity, date_time)
+        VALUES (?, ?, ?, ?)
     """, batch)
     conn.commit()
 
@@ -78,8 +77,6 @@ if __name__ == '__main__':
                         data['temp'],
                         data['humidity'],
                         convert_to_timestamp(conn, data['date_time']),
-                        datetime.now().strftime('%Y-%m-%d'),
-                        datetime.now().strftime('%H')
                     ))
                     
                     if len(batch) >= batch_size:
