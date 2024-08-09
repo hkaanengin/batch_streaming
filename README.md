@@ -5,6 +5,10 @@
 - [Project Architecture](#project-architecture)
 - [Container Creation](#container-creation)
 - [Web Services](#web-services)
+- [Kafka&ETL Scripts](#kafka&etl-scripts)
+    - [Kafka Producer](#kafka-producer)
+    - [Kafka Consumer](#kafka-consumer)
+    - [ETL Process](#etl-process)
 
 ## Introduction
 
@@ -35,12 +39,21 @@ docker network create <new-network-name>
 ```
 Make sure you update `networks` in the docker-compose-infra file with the new network name.
 
-You now should have the containers running smoothly. You may now run the `kafka_producer.py` with:
+## Web Services
+
+When the container is up and running, you may now access Kafka UI to take a look at your kafka topic&producer&consumer. You now can access the Kafka UI at `https://localhost:8888`
+
+## Kafka&ETL Scripts
+
+At this point, you should have your container running smoothly. You may now proceed Kafka and ETL Scripts. 
+
+### Kafka Producer
 ```bash
 python kafka_producer.py
 ```
 `kafka_producer.py` will start reading the measurements.parquet file and start queueing entries into Kafka topic.
 
+### Kafka Consumer
 While producer is running, open an other terminal on your IDE, and run the `kafka_consumer.py` with:
 ```bash
 python kafka_consumer.py
@@ -48,7 +61,4 @@ python kafka_consumer.py
 
 This will start reading entries(both existing&to be produced entries) from kafka topic and write them to DuckDB database.
 
-
-## Web Services
-
-When the container is up and running, you may now access Kafka UI to take a look at your kafka topic&producer&consumer. You now can access the Kafka UI at `https://localhost:8888`
+### ETL Process
