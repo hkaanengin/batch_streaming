@@ -48,17 +48,19 @@ When the container is up and running, you may now access Kafka UI to take a look
 At this point, you should have your container running smoothly. You may now proceed Kafka and ETL Scripts. 
 
 ### Kafka Producer
+Run the `kafka_producer.py`. This script creates the Kafka topic, reads the data from parquet file using Pandas and send the json messages to the topic.
 ```bash
 python kafka_producer.py
 ```
-`kafka_producer.py` will start reading the measurements.parquet file and start queueing entries into Kafka topic.
 
 ### Kafka Consumer
-While producer is running, open an other terminal on your IDE, and run the `kafka_consumer.py` with:
+While producer is running, open an other terminal on your IDE, and run the `kafka_consumer.py`. This script connects to the Kafka topic&starts listening, creates our source database, DuckDB, and writes messages from the topic to our db.
 ```bash
 python kafka_consumer.py
 ```
 
-This will start reading entries(both existing&to be produced entries) from kafka topic and write them to DuckDB database.
-
 ### ETL Process
+After, you run your kafka producer&consumer, you should have parquet data ingesting in batches into DuckDB. Now, you can start the ETL Process by issuing the command:
+```bash
+python avg_report.py
+```
