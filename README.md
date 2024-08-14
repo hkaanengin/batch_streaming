@@ -64,3 +64,9 @@ After, you run your kafka producer&consumer, you should have parquet data ingest
 ```bash
 python avg_report.py
 ```
+
+This script reads the data from DuckDB database instance and create following reports using DuckDB:
+- **i**: Average summary of temperature data over a 10-minute interval.
+- **ii**: Average summary of humidity data over a 20-minute interval.
+
+..Then write the resulting data into PostgreSQL instance.
